@@ -1,11 +1,12 @@
 import OptionInputList from '@/src/components/OptionInputList/OptionInputList';
+import styles from '@/styles/Home.module.css';
 import React, { useState } from 'react';
 
 const index = () => {
   return (
-    <div>
+    <main className={styles.main}>
       <OptionInputList />
-    </div>
+    </main>
   );
 };
 
