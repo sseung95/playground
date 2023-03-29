@@ -23,7 +23,8 @@ const Layout = ({ children }: LayoutProps) => {
       <BodyContainer>
         <Nav>
           <ul>
-            <li onClick={() => router.push('/compo')}>컴포넌트</li>
+            <li onClick={() => router.push('/compo')}>🧱 컴포넌트</li>
+            <li onClick={() => router.push('/etc')}>🥳 내맘대로 끄적</li>
             {/* <li onClick={() => router.push('/feat')}>기능 구현</li> */}
           </ul>
         </Nav>
