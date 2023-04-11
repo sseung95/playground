@@ -74,5 +74,6 @@ const Nav = styled.nav`
 const Main = styled.main`
   min-height: 100vh;
   flex-grow: 1;
-  padding: 80px;
+  padding: 8rem;
+  width: calc(100vw - 30rem - 8rem);
 `;
