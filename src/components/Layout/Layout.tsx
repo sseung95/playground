@@ -163,5 +163,4 @@ const Main = styled.main`
   padding: 8rem;
   flex-grow: 1;
   overflow-y: auto;
-  background-color: beige;
 `;
