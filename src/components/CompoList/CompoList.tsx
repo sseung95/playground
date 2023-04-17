@@ -41,7 +41,13 @@ const CompoList = () => {
               <label htmlFor="check3">이미지 삭제</label>
             </Check>
             <Check>
-              <input type="checkbox" name="check4" id="check4" readOnly />
+              <input
+                type="checkbox"
+                name="check4"
+                id="check4"
+                checked={true}
+                disabled
+              />
               <label htmlFor="check4">drag and drop 업로드 기능 구현</label>
             </Check>
           </CheckList>
