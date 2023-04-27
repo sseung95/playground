@@ -22,9 +22,9 @@ const Layout = ({ children }: LayoutProps) => {
         </Logo>
       </Header>
       <BodyContainer>
-        <Nav folding={folding}>
+        <Nav folding={folding ? 'folding' : 'unfolding'}>
           <FoldingIcon
-            folding={folding}
+            folding={folding ? 'folding' : 'unfolding'}
             onClick={() => setFolding((prev) => !prev)}
           />
           <NavTop>
@@ -45,6 +45,21 @@ const Layout = ({ children }: LayoutProps) => {
                 </SubMenu>
               </li>
               <li>
+                <MenuItem onClick={() => router.push('/library/ckeditor')}>
+                  🛠 라이브러리
+                </MenuItem>
+                <SubMenu>
+                  <li>
+                    <MenuItem
+                      isActive={router.pathname === '/library/ckeditor'}
+                      onClick={() => router.push('/library/ckeditor')}
+                    >
+                      CKEditor
+                    </MenuItem>
+                  </li>
+                </SubMenu>
+              </li>
+              <li>
                 <MenuItem
                   isActive={router.pathname === '/etc'}
                   onClick={() => router.push('/etc')}
@@ -57,7 +72,7 @@ const Layout = ({ children }: LayoutProps) => {
           <NavBottom></NavBottom>
         </Nav>
 
-        <Main>{children}</Main>
+        <Main folding={folding ? 'folding' : 'unfolding'}>{children}</Main>
       </BodyContainer>
     </>
   );
@@ -65,11 +80,12 @@ const Layout = ({ children }: LayoutProps) => {
 
 export default Layout;
 
-const FoldingIcon = styled(NavigateBeforeIcon)<{ folding: boolean }>`
+const FoldingIcon = styled(NavigateBeforeIcon)<{ folding: string }>`
   position: absolute;
   top: 1.25rem;
   right: 0;
-  transform: translateX(50%) ${({ folding }) => folding && 'rotate(180deg)'};
+  transform: translateX(50%)
+    ${({ folding }) => folding === 'folding' && 'rotate(180deg)'};
   padding: 0.4rem;
   box-sizing: content-box;
   width: 2rem;
@@ -89,9 +105,9 @@ const FoldingIcon = styled(NavigateBeforeIcon)<{ folding: boolean }>`
   }
 `;
 
-const Nav = styled.nav<{ folding: boolean }>`
+const Nav = styled.nav<{ folding: string }>`
   position: relative;
-  width: ${({ folding }) => `${folding ? 2 : 30}rem`};
+  width: ${({ folding }) => `${folding === 'folding' ? 2 : 30}rem`};
   min-height: calc(100vh - 5.6rem);
   max-height: calc(100vh - 5.6rem);
   padding: 1rem;
@@ -149,6 +165,7 @@ const NavBottom = styled.div``;
 const BodyContainer = styled.div`
   display: flex;
   max-height: calc(100vh - 5.6rem);
+  max-width: 100vw;
 `;
 
 const Header = styled.header`
@@ -159,8 +176,10 @@ const Header = styled.header`
   align-items: center;
 `;
 
-const Main = styled.main`
+const Main = styled.main<{ folding: string }>`
   padding: 8rem;
   flex-grow: 1;
   overflow-y: auto;
+  max-width: ${({ folding }) =>
+    `calc(100vw - ${folding === 'folding' ? 2 : 30}rem - 16rem)`};
 `;
