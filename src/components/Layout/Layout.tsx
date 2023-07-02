@@ -42,6 +42,18 @@ const Layout = ({ children }: LayoutProps) => {
                       이미지 업로더
                     </MenuItem>
                   </li>
+                  <li>
+                    <MenuItem
+                      isActive={
+                        router.pathname === '/compo/contentEditable-textarea'
+                      }
+                      onClick={() =>
+                        router.push('/compo/contentEditable-textarea')
+                      }
+                    >
+                      contentEditable Textarea
+                    </MenuItem>
+                  </li>
                 </SubMenu>
               </li>
               <li>
