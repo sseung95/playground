@@ -33,8 +33,11 @@ const CkEitorCompo = () => {
       .get('ImageUploadEditing')
       .on('uploadComplete', (evt: any, { data, imageElement }: any) => {
         editor.model.change((writer: any) => {
+          console.log(writer);
+
           writer.setAttribute('dataId', data.dataId, imageElement);
-          writer.setAttribute('url', data.url, imageElement);
+          // writer.setAttribute('url', data.url, imageElement);
+          console.log(writer);
         });
 
         editor.model.schema.extend('imageBlock', { allowAttributes: 'dataId' });
