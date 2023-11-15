@@ -9,6 +9,9 @@ const InteractiveContainer = () => {
       <LinkButton>
         <Link href={'/interactive/card'}>카드 뒤집기 👉</Link>
       </LinkButton>
+      <LinkButton>
+        <Link href={'/interactive/door'}>문 열고 닫기 👉</Link>
+      </LinkButton>
     </Container>
   );
 };
@@ -19,7 +22,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   gap: 20px;
 `;
 

@@ -79,6 +79,14 @@ const Layout = ({ children }: LayoutProps) => {
                   🥳 내맘대로 끄적
                 </MenuItem>
               </li>
+              <li>
+                <MenuItem
+                  isActive={router.pathname === '/interactive'}
+                  onClick={() => router.push('/interactive')}
+                >
+                  인터랙티브 웹
+                </MenuItem>
+              </li>
             </MenuContainer>
           </NavTop>
           <NavBottom></NavBottom>
