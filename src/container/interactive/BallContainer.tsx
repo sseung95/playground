@@ -1,8 +1,8 @@
 import { MouseEvent, useRef, useState } from 'react';
 import styled from '@emotion/styled';
-import { css, keyframes } from '@emotion/react';
 import { BoxSC } from '@/styles/components/common';
-import { color } from '@/styles/color';
+import * as SC from '@/styles/components/interactive/Ball.styles';
+import { color, colorPalette } from '@/styles/color';
 
 const BALL_SIZE = 30;
 
@@ -28,66 +28,24 @@ const BallContainer = () => {
     <BoxSC.Box>
       <BoxSC.BoxTitle>클릭해서 공을 움직여 보세요!</BoxSC.BoxTitle>
       <BoxSC.BoxBody>
-        <Stage onClick={handleClickStage}>
-          <Ball
+        <SC.Stage onClick={handleClickStage}>
+          <SC.Ball
             ref={ballRef}
             size={BALL_SIZE}
             x={position.x}
             y={position.y}
             isStart={isStart}
           />
-        </Stage>
+          {!isStart && (
+            <SC.Guide>
+              <SC.GuideComment>클릭해보세요!</SC.GuideComment>
+              <SC.GuideCircle />
+            </SC.Guide>
+          )}
+        </SC.Stage>
       </BoxSC.BoxBody>
     </BoxSC.Box>
   );
 };
 
 export default BallContainer;
-
-const Stage = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 60vw;
-  height: 30vw;
-  background-color: ${color.gray.gray50};
-  border-radius: 20px;
-  cursor: pointer;
-`;
-
-const bounce = keyframes`
-  from, 20%, 53%, 80%, to {
-    transform: translate3d(0,0,0);
-  }
-
-  40%, 43% {
-    transform: translate3d(0, -30px, 0);
-  }
-
-  70% {
-    transform: translate3d(0, -15px, 0);
-  }
-
-  90% {
-    transform: translate3d(0,-4px,0);
-  }
-`;
-
-const Ball = styled.div<{
-  size: number;
-  x: number;
-  y: number;
-  isStart: boolean;
-}>`
-  width: ${({ size }) => `${size}px`};
-  height: ${({ size }) => `${size}px`};
-  background: ${color.primary};
-  border-radius: 50%;
-  transition: 0.5s;
-  transform: ${({ x, y }) => `translate3d(${x}px, ${y}px, 0)`};
-  animation: ${({ isStart }) =>
-    !isStart &&
-    css`
-      ${bounce} 1s ease infinite
-    `};
-`;
