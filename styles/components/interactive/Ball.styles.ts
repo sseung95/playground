@@ -4,7 +4,6 @@ import { color, colorPalette } from '@/styles/color';
 import { bounceAnimation, outerCircleAnimation } from '@/styles/animation';
 
 export const Stage = styled.div`
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -27,17 +26,19 @@ export const Ball = styled.div<{
   border-radius: 50%;
   transition: 0.5s;
   transform: ${({ x, y }) => `translate3d(${x}px, ${y}px, 0)`};
-  /* animation: ${({ isStart }) =>
+  /* TODO: isStart 가 true 되면서 맨 처음 공이 움직일 때 부드럽게 움직이지 않고 뚝 끊기면서 움직임 */
+  animation: ${({ isStart }) =>
     !isStart &&
     css`
       ${bounceAnimation} 1s ease infinite
-    `}; */
+    `};
 `;
 
 export const Guide = styled.div`
-  position: absolute;
-  left: 72%;
-  top: 25%;
+  /* TODO: position: absolute 였을 때 공의 x, y 포지션이 이상하게 동작했다. 이유가 뭘까 */
+  position: relative;
+  top: -30%;
+  left: 20%;
 `;
 
 export const GuideComment = styled.div`
