@@ -9,17 +9,27 @@ const BALL_SIZE = 30;
 const BallContainer = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isStart, setIsStart] = useState(false);
+  const stageRef = useRef(null);
   const ballRef = useRef(null);
 
   const handleClickStage = (e: MouseEvent<HTMLElement>) => {
-    if (!ballRef.current) return;
+    if (!ballRef.current || !stageRef.current) return;
 
     setIsStart(true);
 
     const ballEl = ballRef.current as HTMLElement;
+    const stageEl = stageRef.current as HTMLElement;
 
-    const x = e.clientX - ballEl.offsetLeft - BALL_SIZE / 2;
-    const y = e.clientY - ballEl.offsetTop - BALL_SIZE / 2;
+    let x = e.clientX - ballEl.offsetLeft - BALL_SIZE / 2;
+    let y = e.clientY - ballEl.offsetTop - BALL_SIZE / 2;
+
+    const maxXRange = stageEl.clientWidth / 2 - BALL_SIZE / 2;
+    const maxYRange = stageEl.clientHeight / 2 - BALL_SIZE / 2;
+
+    if (x > maxXRange) x = maxXRange;
+    if (x < -maxXRange) x = -maxXRange;
+    if (y > maxYRange) y = maxYRange;
+    if (y < -maxYRange) y = -maxYRange;
 
     setPosition({ x, y });
   };
@@ -28,7 +38,7 @@ const BallContainer = () => {
     <BoxSC.Box>
       <BoxSC.BoxTitle>클릭해서 공을 움직여 보세요!</BoxSC.BoxTitle>
       <BoxSC.BoxBody>
-        <SC.Stage onClick={handleClickStage}>
+        <SC.Stage ref={stageRef} onClick={handleClickStage}>
           <SC.Ball
             ref={ballRef}
             size={BALL_SIZE}
