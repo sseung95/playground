@@ -26,7 +26,9 @@ export const Ball = styled.div<{
   border-radius: 50%;
   transition: 0.5s;
   transform: ${({ x, y }) => `translate3d(${x}px, ${y}px, 0)`};
-  /* TODO: isStart 가 true 되면서 맨 처음 공이 움직일 때 부드럽게 움직이지 않고 뚝 끊기면서 움직임 */
+  /* TODO: isStart 가 true 되면서 맨 처음 공이 움직일 때 부드럽게 움직이지 않고 뚝 끊기면서 움직임
+    -> animation은 transition 적용이 되지 않는다고 함. 어떻게 부드럽게 움직일 수 있는지 고민해보기
+  */
   animation: ${({ isStart }) =>
     !isStart &&
     css`
