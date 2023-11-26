@@ -197,9 +197,9 @@ const Header = styled.header`
 `;
 
 const Main = styled.main<{ folding: string }>`
+  flex: 1;
   padding: 8rem;
-  flex-grow: 1;
   overflow-y: auto;
-  max-width: ${({ folding }) =>
-    `calc(100vw - ${folding === 'folding' ? 2 : 30}rem - 16rem)`};
+  /* max-width: ${({ folding }) =>
+    `calc(100vw - ${folding === 'folding' ? 2 : 30}rem - 16rem)`}; */
 `;
