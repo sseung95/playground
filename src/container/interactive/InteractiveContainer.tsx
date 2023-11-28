@@ -15,6 +15,9 @@ const InteractiveContainer = () => {
       <LinkButton>
         <Link href={'/interactive/ball'}>공 움직이기 ⚽️</Link>
       </LinkButton>
+      <LinkButton>
+        <Link href={'/interactive/forward'}>3D 전진 앞으로!</Link>
+      </LinkButton>
     </Container>
   );
 };
