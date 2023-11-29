@@ -24,7 +24,7 @@ export const House = styled.div`
   transform: translateZ(-500vw);
 `;
 
-export const Wall = styled.div<{ position?: string; order?: number }>`
+export const Wall = styled.div<{ position?: string; zMove?: number }>`
   position: absolute;
   left: 0;
   top: 0;
@@ -33,25 +33,24 @@ export const Wall = styled.div<{ position?: string; order?: number }>`
   align-items: center;
   justify-content: center;
 
-  width: ${({ position }) => (position ? '400vw' : '100vw')};
+  width: ${({ position }) => (position ? '1000vw' : '100vw')};
   height: 100vh;
 
-  background: #fff;
-  border: 1px solid blue;
+  background: ${({ position }) => (position ? '#f8f8f8' : '#fff')};
   opacity: ${({ position }) => (position ? 1 : 0.7)};
 
   font-size: 15rem;
 
-  transform: ${({ position, order }) =>
+  transform: ${({ position, zMove }) =>
     `rotateY(${
       position === 'left' || position === 'right' ? 90 : 0
     }deg) translateZ(${
       position === 'left'
-        ? -200
+        ? -500
         : position === 'right'
-        ? -100
-        : order
-        ? `${order * 100 - 200}`
+        ? -400
+        : zMove
+        ? `${zMove}`
         : 0
     }vw)`};
 `;
