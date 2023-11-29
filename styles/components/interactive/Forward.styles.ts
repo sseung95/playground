@@ -1,44 +1,57 @@
 import styled from '@emotion/styled';
 
 export const ForwardContainer = styled.div`
-  width: 1200px;
-  height: 600px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
   background: beige;
   perspective: 1000px;
 `;
 
 export const Stage = styled.div`
-  width: 1200px;
-  height: 600px;
+  width: 100vw;
+  height: 100vh;
   transform-style: preserve-3d;
 `;
 
 export const House = styled.div`
   position: relative;
-  width: 1200px;
-  height: 600px;
+  width: 100vw;
+  height: 100vh;
   transform-style: preserve-3d;
-  transform: translateZ(-4800px);
+  transform: translateZ(-500vw);
 `;
 
-export const Wall = styled.div<{ position?: string }>`
+export const Wall = styled.div<{ position?: string; order?: number }>`
   position: absolute;
   left: 0;
   top: 0;
-  width: ${({ position }) => (position ? '3000px' : '1200px')};
-  height: 600px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: ${({ position }) => (position ? '400vw' : '100vw')};
+  height: 100vh;
+
   background: #fff;
-  /* border: 1px solid blue; */
+  border: 1px solid blue;
+  opacity: ${({ position }) => (position ? 1 : 0.7)};
 
-  transform: ${({ position }) =>
-    position === 'left' || position === 'right'
-      ? `rotateY(90deg) translateZ(-1500px)`
-      : 'none'};
+  font-size: 15rem;
 
-  transform: ${({ position }) =>
+  transform: ${({ position, order }) =>
     `rotateY(${
       position === 'left' || position === 'right' ? 90 : 0
     }deg) translateZ(${
-      position === 'left' ? -1500 : position === 'right' ? -300 : 0
-    }px)`};
+      position === 'left'
+        ? -200
+        : position === 'right'
+        ? -100
+        : order
+        ? `${order * 100 - 200}`
+        : 0
+    }vw)`};
 `;

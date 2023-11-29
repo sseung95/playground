@@ -92,7 +92,7 @@ const Layout = ({ children }: LayoutProps) => {
           <NavBottom></NavBottom>
         </Nav>
 
-        <Main folding={folding ? 'folding' : 'unfolding'}>{children}</Main>
+        <Main>{children}</Main>
       </BodyContainer>
     </>
   );
@@ -115,6 +115,7 @@ const FoldingIcon = styled(NavigateBeforeIcon)<{ folding: string }>`
   background-color: #fff;
   cursor: pointer;
   transition: all 0.2s;
+  z-index: 100;
 
   :hover {
     background-color: ${color.primary};
@@ -196,10 +197,9 @@ const Header = styled.header`
   align-items: center;
 `;
 
-const Main = styled.main<{ folding: string }>`
+const Main = styled.main`
   flex: 1;
   padding: 8rem;
   overflow-y: auto;
-  /* max-width: ${({ folding }) =>
-    `calc(100vw - ${folding === 'folding' ? 2 : 30}rem - 16rem)`}; */
+  overflow-x: hidden;
 `;
