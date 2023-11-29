@@ -35,10 +35,11 @@ export const ForwardContainer = styled.div`
   perspective: 1000px;
 `;
 
-export const Stage = styled.div`
+export const Stage = styled.div<{ position: { x: number; y: number } }>`
   width: 100vw;
   height: 100vh;
   transform-style: preserve-3d;
+  transform: ${({ position: { x, y } }) => `rotateX(${y}deg) rotateY(${x}deg)`};
 `;
 
 export const House = styled.div<{ zMove: number }>`

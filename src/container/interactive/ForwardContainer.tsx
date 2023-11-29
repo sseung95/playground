@@ -1,10 +1,17 @@
-import { useEffect, useRef, useState } from 'react';
+import {
+  MouseEvent,
+  MouseEventHandler,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import * as SC from '@/styles/components/interactive/Forward.styles';
 
 const INITIAL_HOUSE_Z_MOVE = -500;
 
 const ForwardContainer = () => {
   const [houseZMove, setHouseZMove] = useState<number>(INITIAL_HOUSE_Z_MOVE);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const bodyRef = useRef<HTMLDivElement>(null);
   const scrollPercentage = useRef<number>(0);
 
@@ -18,6 +25,13 @@ const ForwardContainer = () => {
     scrollPercentage.current = scrollRate * 100;
   };
 
+  const handleMouseMove = (e: MouseEvent) => {
+    const x = -1 + (e.clientX / window.innerWidth) * 2;
+    const y = 1 - (e.clientY / window.innerHeight) * 2;
+
+    setMousePosition({ x: x * 2, y: y * 2 });
+  };
+
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
 
@@ -29,9 +43,9 @@ const ForwardContainer = () => {
   return (
     <>
       <SC.ScrollBar percentage={scrollPercentage.current || 0} />
-      <SC.Body ref={bodyRef}>
+      <SC.Body ref={bodyRef} onMouseMove={handleMouseMove}>
         <SC.ForwardContainer>
-          <SC.Stage>
+          <SC.Stage position={mousePosition}>
             <SC.House zMove={houseZMove}>
               <SC.Wall position={'left'}></SC.Wall>
               <SC.Wall position={'right'}></SC.Wall>
