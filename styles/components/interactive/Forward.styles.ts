@@ -1,4 +1,29 @@
+import { color } from '@/styles/color';
 import styled from '@emotion/styled';
+
+export const ScrollBar = styled.div<{ percentage: number }>`
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  width: 100vw;
+  height: 5px;
+  background: ${color.gray.gray30};
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: ${({ percentage }) => `${percentage}%`};
+    height: 100%;
+    background: ${color.primary};
+  }
+`;
+
+export const Body = styled.div`
+  height: 500vh;
+`;
 
 export const ForwardContainer = styled.div`
   position: fixed;
@@ -16,12 +41,12 @@ export const Stage = styled.div`
   transform-style: preserve-3d;
 `;
 
-export const House = styled.div`
+export const House = styled.div<{ zMove: number }>`
   position: relative;
   width: 100vw;
   height: 100vh;
   transform-style: preserve-3d;
-  transform: translateZ(-500vw);
+  transform: ${({ zMove }) => `translateZ(${zMove}vw)`};
 `;
 
 export const Wall = styled.div<{ position?: string; zMove?: number }>`
