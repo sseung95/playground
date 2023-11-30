@@ -6,6 +6,7 @@ import {
   useState,
 } from 'react';
 import * as SC from '@/styles/components/interactive/Forward.styles';
+import Charactor from '@/src/components/forward/Charactor';
 
 const INITIAL_HOUSE_Z_MOVE = -500;
 
@@ -46,6 +47,7 @@ const ForwardContainer = () => {
       <SC.Body ref={bodyRef} onMouseMove={handleMouseMove}>
         <SC.ForwardContainer>
           <SC.Stage position={mousePosition}>
+            {/* 집 */}
             <SC.House zMove={houseZMove}>
               <SC.Wall position={'left'}></SC.Wall>
               <SC.Wall position={'right'}></SC.Wall>
@@ -54,6 +56,9 @@ const ForwardContainer = () => {
               <SC.Wall zMove={-200}>안녕하세요 3</SC.Wall>
               <SC.Wall zMove={-500}>안녕하세요 4</SC.Wall>
             </SC.House>
+
+            {/* 캐릭터 */}
+            <Charactor />
           </SC.Stage>
         </SC.ForwardContainer>
       </SC.Body>

@@ -1,5 +1,6 @@
 import { color } from '@/styles/color';
 import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 
 export const ScrollBar = styled.div<{ percentage: number }>`
   position: fixed;
@@ -79,4 +80,79 @@ export const Wall = styled.div<{ position?: string; zMove?: number }>`
         ? `${zMove}`
         : 0
     }vw)`};
+`;
+
+export const Charactor = styled.div`
+  position: absolute;
+  left: 20%;
+  bottom: 3%;
+
+  width: 10vw;
+  height: 15.58vw;
+
+  /* transform: rotateY(180deg); */
+  /* transform-style: preserve-3d; */
+`;
+
+// 캐릭터의 몸 요소 공통 스타일
+const CharctorBodyPart = styled.div`
+  position: absolute;
+
+  img {
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    backface-visibility: hidden;
+
+    &.back {
+      transform: rotateY(180deg);
+    }
+  }
+`;
+
+export const CharactorHead = styled(CharctorBodyPart)`
+  left: calc(43 / 856 * 100%);
+  top: 0;
+  width: calc(770 / 856 * 100%);
+  height: calc(648 / 1334 * 100%);
+`;
+
+export const CharactorBody = styled(CharctorBodyPart)`
+  left: calc(208 / 856 * 100%);
+  top: calc(647 / 1334 * 100%);
+  width: calc(428 / 856 * 100%);
+  height: calc(385 / 1334 * 100%);
+`;
+
+export const CharactorArm = styled(CharctorBodyPart)<{ direction: string }>`
+  left: calc(600 / 856 * 100%);
+  top: calc(648 / 1334 * 100%);
+  width: calc(244 / 856 * 100%);
+  height: calc(307 / 1334 * 100%);
+
+  ${({ direction }) =>
+    direction === 'right' &&
+    `
+      left: 0;
+      top: calc(648 / 1334 * 100%);
+      width: calc(244 / 856 * 100%);
+      height: calc(307 / 1334 * 100%);
+  `};
+`;
+
+export const CharactorLeg = styled(CharctorBodyPart)<{ direction: string }>`
+  left: calc(414 / 856 * 100%);
+  top: calc(1031 / 1334 * 100%);
+  width: calc(230 / 856 * 100%);
+  height: calc(300 / 1334 * 100%);
+
+  ${({ direction }) =>
+    direction === 'right' &&
+    `
+      left: calc(200 / 856 * 100%);
+      top: calc(1031 / 1334 * 100%);
+      width: calc(230 / 856 * 100%);
+      height: calc(300 / 1334 * 100%);
+  `}
 `;
