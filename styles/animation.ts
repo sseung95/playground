@@ -28,3 +28,27 @@ export const outerCircleAnimation = keyframes`
     opacity: 0;
   }
 `;
+
+export const headAnimation = keyframes`
+  to {
+    transform: rotateX(-10deg);
+  }
+`;
+
+export const armAnimation = keyframes`
+  to {
+    transform: rotateY(-30deg);
+  }
+  from {
+    transform: rotateY(30deg);
+  }
+`;
+
+export const legAnimation = keyframes`
+  to {
+    transform: rotateX(-30deg);
+  }
+  from {
+    transform: rotateX(30deg);
+  }
+`;

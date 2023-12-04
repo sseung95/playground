@@ -13,6 +13,7 @@ const INITIAL_HOUSE_Z_MOVE = -500;
 const ForwardContainer = () => {
   const [houseZMove, setHouseZMove] = useState<number>(INITIAL_HOUSE_Z_MOVE);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
   const bodyRef = useRef<HTMLDivElement>(null);
   const scrollPercentage = useRef<number>(0);
 

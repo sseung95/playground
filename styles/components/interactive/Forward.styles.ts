@@ -1,6 +1,7 @@
 import { color } from '@/styles/color';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
+import { armAnimation, headAnimation, legAnimation } from '@/styles/animation';
 
 export const ScrollBar = styled.div<{ percentage: number }>`
   position: fixed;
@@ -90,19 +91,20 @@ export const Charactor = styled.div`
   width: 10vw;
   height: 15.58vw;
 
+  transform-style: preserve-3d;
   /* transform: rotateY(180deg); */
-  /* transform-style: preserve-3d; */
 `;
 
 // 캐릭터의 몸 요소 공통 스타일
 const CharctorBodyPart = styled.div`
   position: absolute;
+  /* 앞, 뒷면을 감싸고 있는 컨테이너에도 preserve-3d 를 주어야 backface-visibility 효과가 제대로 먹힌다! */
+  transform-style: preserve-3d;
 
   img {
     position: absolute;
     left: 0;
     top: 0;
-
     backface-visibility: hidden;
 
     &.back {
@@ -116,6 +118,10 @@ export const CharactorHead = styled(CharctorBodyPart)`
   top: 0;
   width: calc(770 / 856 * 100%);
   height: calc(648 / 1334 * 100%);
+
+  /* 요소의 변환 기준점을 변경 */
+  transform-origin: bottom center;
+  animation: ${headAnimation} 1s infinite alternate linear;
 `;
 
 export const CharactorBody = styled(CharctorBodyPart)`
@@ -125,11 +131,23 @@ export const CharactorBody = styled(CharctorBodyPart)`
   height: calc(385 / 1334 * 100%);
 `;
 
-export const CharactorArm = styled(CharctorBodyPart)<{ direction: string }>`
+export const CharactorArm = styled(CharctorBodyPart)<{
+  direction: string;
+  running?: boolean;
+}>`
   left: calc(600 / 856 * 100%);
   top: calc(648 / 1334 * 100%);
   width: calc(244 / 856 * 100%);
   height: calc(307 / 1334 * 100%);
+
+  /* 요소의 변환 기준점을 변경 */
+  transform-origin: left top;
+
+  ${({ running }) =>
+    running &&
+    `
+    animation: ${armAnimation} 0.2s infinite alternate linear;
+  `}
 
   ${({ direction }) =>
     direction === 'right' &&
@@ -138,14 +156,27 @@ export const CharactorArm = styled(CharctorBodyPart)<{ direction: string }>`
       top: calc(648 / 1334 * 100%);
       width: calc(244 / 856 * 100%);
       height: calc(307 / 1334 * 100%);
+      transform-origin: right top;
   `};
 `;
 
-export const CharactorLeg = styled(CharctorBodyPart)<{ direction: string }>`
+export const CharactorLeg = styled(CharctorBodyPart)<{
+  direction: string;
+  running?: boolean;
+}>`
   left: calc(414 / 856 * 100%);
   top: calc(1031 / 1334 * 100%);
   width: calc(230 / 856 * 100%);
   height: calc(300 / 1334 * 100%);
+
+  /* 요소의 변환 기준점을 변경 */
+  transform-origin: top;
+
+  ${({ running }) =>
+    running &&
+    `
+    animation: ${legAnimation} 0.2s infinite alternate linear;
+  `}
 
   ${({ direction }) =>
     direction === 'right' &&
@@ -154,5 +185,6 @@ export const CharactorLeg = styled(CharctorBodyPart)<{ direction: string }>`
       top: calc(1031 / 1334 * 100%);
       width: calc(230 / 856 * 100%);
       height: calc(300 / 1334 * 100%);
+      animation-direction: alternate-reverse;
   `}
 `;
