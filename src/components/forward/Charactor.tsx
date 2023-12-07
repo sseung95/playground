@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from 'react';
+import { memo, UIEvent, useEffect, useState } from 'react';
 import HeadFront from '@/public/images/forward/ilbuni_head_front.png';
 import HeadBack from '@/public/images/forward/ilbuni_head_back.png';
 import BodyFront from '@/public/images/forward/ilbuni_body_front.png';
@@ -12,10 +12,12 @@ import * as SC from '@/styles/components/interactive/Forward.styles';
 const Charactor = () => {
   const [isRunning, setIsRunning] = useState(false);
   // TODO: useState 로 하게 되면 의도한대로 동작이 잘되지 않음. 이유 찾아보기
+  // const [prevScrollY, setPrevScrollY] = useState<number>(0);
   // const [timer, setTimer] = useState<number | NodeJS.Timeout>(0);
-  let timer: NodeJS.Timeout | null;
+  let timer: NodeJS.Timeout | null = null;
+  let prevScrollY: number = 0;
 
-  const handleScroll = () => {
+  const runOnScroll = () => {
     if (timer) {
       clearTimeout(timer);
     }
@@ -28,6 +30,25 @@ const Charactor = () => {
       timer = null;
       setIsRunning(false);
     }, 500);
+  };
+
+  const changeCharacterDirection = () => {
+    const curScrollY = window.scrollY;
+
+    const isScrollUp = prevScrollY > curScrollY;
+
+    if (isScrollUp) {
+      console.log('스크롤 업');
+    } else {
+      console.log('스크롤 다운');
+    }
+
+    prevScrollY = curScrollY;
+  };
+
+  const handleScroll = () => {
+    runOnScroll();
+    changeCharacterDirection();
   };
 
   useEffect(() => {
