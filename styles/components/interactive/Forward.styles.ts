@@ -145,9 +145,9 @@ export const CharactorArm = styled(CharctorBodyPart)<{
 
   ${({ running }) =>
     running &&
-    `
-    animation: ${armAnimation} 0.2s infinite alternate linear;
-  `}
+    css`
+      animation: ${armAnimation} 0.2s infinite alternate linear;
+    `}
 
   ${({ direction }) =>
     direction === 'right' &&
@@ -174,9 +174,9 @@ export const CharactorLeg = styled(CharctorBodyPart)<{
 
   ${({ running }) =>
     running &&
-    `
-    animation: ${legAnimation} 0.2s infinite alternate linear;
-  `}
+    css`
+      animation: ${legAnimation} 0.2s infinite alternate linear;
+    `}
 
   ${({ direction }) =>
     direction === 'right' &&

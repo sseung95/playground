@@ -10,13 +10,24 @@ import LegLeft from '@/public/images/forward/ilbuni_leg_1.png';
 import * as SC from '@/styles/components/interactive/Forward.styles';
 
 const Charactor = () => {
-  // const [isRunning, setIsRunning] = useState(false);
-  const [timer, setTimer] = useState<number | NodeJS.Timeout>(0);
+  const [isRunning, setIsRunning] = useState(false);
+  // TODO: useState 로 하게 되면 의도한대로 동작이 잘되지 않음. 이유 찾아보기
+  // const [timer, setTimer] = useState<number | NodeJS.Timeout>(0);
+  let timer: NodeJS.Timeout | null;
 
   const handleScroll = () => {
-    if (timer) return;
+    if (timer) {
+      clearTimeout(timer);
+    }
 
-    // setTimer(() => setTimeout(() => {}, 500));
+    if (!timer) {
+      setIsRunning(true);
+    }
+
+    timer = setTimeout(() => {
+      timer = null;
+      setIsRunning(false);
+    }, 500);
   };
 
   useEffect(() => {
@@ -26,10 +37,6 @@ const Charactor = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-
-  useEffect(() => {
-    console.log(timer);
-  }, [timer]);
 
   return (
     <SC.Charactor>
@@ -46,25 +53,25 @@ const Charactor = () => {
       </SC.CharactorBody>
 
       {/* 팔 (왼쪽) */}
-      <SC.CharactorArm direction={'left'}>
+      <SC.CharactorArm direction={'left'} running={isRunning}>
         <img src={ArmLeft.src} alt="left arm" />
         <img className={'back'} src={ArmLeft.src} alt="left arm" />
       </SC.CharactorArm>
 
       {/* 팔 (오른쪽) */}
-      <SC.CharactorArm direction={'right'}>
+      <SC.CharactorArm direction={'right'} running={isRunning}>
         <img src={ArmRight.src} alt="left arm" />
         <img className={'back'} src={ArmRight.src} alt="left arm" />
       </SC.CharactorArm>
 
       {/* 다리 (왼쪽) */}
-      <SC.CharactorLeg direction={'left'}>
+      <SC.CharactorLeg direction={'left'} running={isRunning}>
         <img src={LegLeft.src} alt="left leg" />
         <img className={'back'} src={LegLeft.src} alt="left leg" />
       </SC.CharactorLeg>
 
       {/* 다리 (오른쪽) */}
-      <SC.CharactorLeg direction={'right'}>
+      <SC.CharactorLeg direction={'right'} running={isRunning}>
         <img src={LegRight.src} alt="right leg" />
         <img className={'back'} src={LegRight.src} alt="right leg" />
       </SC.CharactorLeg>
