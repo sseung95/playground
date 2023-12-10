@@ -18,12 +18,13 @@ const Charactor = ({
   const [charactorDirection, setCharactorDirection] =
     useState<string>('forward');
   const [xPosition, setXPosition] = useState(xPositionPercentage);
-  const speed = 2;
+  const speed = 0.2;
 
   // TODO: useState 로 하게 되면 의도한대로 동작이 잘되지 않음. 이유 찾아보기
   // const [prevScrollY, setPrevScrollY] = useState<number>(0);
   // const [timer, setTimer] = useState<number | NodeJS.Timeout>(0);
   let timer: NodeJS.Timeout | null = null;
+  let requestAnimationFrameId: number;
   let prevScrollY: number = 0;
 
   const runOnScroll = () => {
@@ -60,11 +61,15 @@ const Charactor = ({
     changeCharacterDirection();
   };
 
-  const handleKeyDown = (e: KeyboardEvent) => {
+  const moveCharactor = (e: KeyboardEvent) => {
+    if (requestAnimationFrameId) {
+      cancelAnimationFrame(requestAnimationFrameId);
+    }
+
     const pressedKey = e.key;
 
     const minLeftPercentage = 0;
-    const maxLeftPercentage = 100;
+    const maxLeftPercentage = 88;
 
     if (pressedKey === 'ArrowLeft') {
       setCharactorDirection('left');
@@ -81,14 +86,28 @@ const Charactor = ({
         return isMoreThanMinPercentage ? maxLeftPercentage : curXPosition;
       });
     }
+
+    // moveCharactor 함수는 e 인자가 필요하므로 반드시! e 를 인자로 전달해주어야 된다.
+    requestAnimationFrameId = requestAnimationFrame(() => moveCharactor(e));
+  };
+
+  const handleKeyDown = (e: KeyboardEvent) => {
+    moveCharactor(e);
+  };
+
+  const handleKeyUp = () => {
+    cancelAnimationFrame(requestAnimationFrameId);
   };
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keyup', handleKeyUp);
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keyup', handleKeyUp);
     };
   }, []);
 
