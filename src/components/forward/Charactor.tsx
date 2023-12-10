@@ -1,4 +1,4 @@
-import { memo, UIEvent, useEffect, useState } from 'react';
+import { memo, UIEvent, useEffect, useMemo, useState } from 'react';
 import HeadFront from '@/public/images/forward/ilbuni_head_front.png';
 import HeadBack from '@/public/images/forward/ilbuni_head_back.png';
 import BodyFront from '@/public/images/forward/ilbuni_body_front.png';
@@ -18,7 +18,6 @@ const Charactor = ({
   const [charactorDirection, setCharactorDirection] =
     useState<string>('forward');
   const [xPosition, setXPosition] = useState(xPositionPercentage);
-  const speed = 0.2;
 
   // TODO: useState 로 하게 되면 의도한대로 동작이 잘되지 않음. 이유 찾아보기
   // const [prevScrollY, setPrevScrollY] = useState<number>(0);
@@ -26,6 +25,8 @@ const Charactor = ({
   let timer: NodeJS.Timeout | null = null;
   let requestAnimationFrameId: number;
   let prevScrollY: number = 0;
+
+  const speed = useMemo(() => Math.random(), []);
 
   const runOnScroll = () => {
     if (timer) {
