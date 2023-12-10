@@ -83,7 +83,20 @@ export const Wall = styled.div<{ position?: string; zMove?: number }>`
     }vw)`};
 `;
 
-export const Charactor = styled.div`
+const setCharactorDirection = (direction: string) => {
+  switch (direction) {
+    case 'left':
+      return 'rotateY(-90deg)';
+    case 'right':
+      return 'rotateY(90deg)';
+    case 'backward':
+      return 'rotateY(180deg)';
+    default:
+      return 'rotateY(0deg)';
+  }
+};
+
+export const Charactor = styled.div<{ direction: string }>`
   position: absolute;
   left: 20%;
   bottom: 3%;
@@ -92,7 +105,7 @@ export const Charactor = styled.div`
   height: 15.58vw;
 
   transform-style: preserve-3d;
-  /* transform: rotateY(180deg); */
+  transform: ${({ direction }) => `${setCharactorDirection(direction)}`};
 `;
 
 // 캐릭터의 몸 요소 공통 스타일

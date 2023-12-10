@@ -11,6 +11,9 @@ import * as SC from '@/styles/components/interactive/Forward.styles';
 
 const Charactor = () => {
   const [isRunning, setIsRunning] = useState(false);
+  const [charactorDirection, setCharactorDirection] =
+    useState<string>('forward');
+
   // TODO: useState 로 하게 되면 의도한대로 동작이 잘되지 않음. 이유 찾아보기
   // const [prevScrollY, setPrevScrollY] = useState<number>(0);
   // const [timer, setTimer] = useState<number | NodeJS.Timeout>(0);
@@ -38,9 +41,9 @@ const Charactor = () => {
     const isScrollUp = prevScrollY > curScrollY;
 
     if (isScrollUp) {
-      console.log('스크롤 업');
+      setCharactorDirection('forward');
     } else {
-      console.log('스크롤 다운');
+      setCharactorDirection('backward');
     }
 
     prevScrollY = curScrollY;
@@ -51,8 +54,19 @@ const Charactor = () => {
     changeCharacterDirection();
   };
 
+  const handleKeyDown = (e: KeyboardEvent) => {
+    const pressedKey = e.key;
+
+    if (pressedKey === 'ArrowLeft') {
+      setCharactorDirection('left');
+    } else if (pressedKey === 'ArrowRight') {
+      setCharactorDirection('right');
+    }
+  };
+
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
+    window.addEventListener('keydown', handleKeyDown);
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -60,7 +74,7 @@ const Charactor = () => {
   }, []);
 
   return (
-    <SC.Charactor>
+    <SC.Charactor direction={charactorDirection}>
       {/* 머리 */}
       <SC.CharactorHead>
         <img src={HeadFront.src} alt="head" />
@@ -76,25 +90,25 @@ const Charactor = () => {
       {/* 팔 (왼쪽) */}
       <SC.CharactorArm direction={'left'} running={isRunning}>
         <img src={ArmLeft.src} alt="left arm" />
-        <img className={'back'} src={ArmLeft.src} alt="left arm" />
+        <img className={'back'} src={ArmRight.src} alt="left arm" />
       </SC.CharactorArm>
 
       {/* 팔 (오른쪽) */}
       <SC.CharactorArm direction={'right'} running={isRunning}>
         <img src={ArmRight.src} alt="left arm" />
-        <img className={'back'} src={ArmRight.src} alt="left arm" />
+        <img className={'back'} src={ArmLeft.src} alt="left arm" />
       </SC.CharactorArm>
 
       {/* 다리 (왼쪽) */}
       <SC.CharactorLeg direction={'left'} running={isRunning}>
         <img src={LegLeft.src} alt="left leg" />
-        <img className={'back'} src={LegLeft.src} alt="left leg" />
+        <img className={'back'} src={LegRight.src} alt="left leg" />
       </SC.CharactorLeg>
 
       {/* 다리 (오른쪽) */}
       <SC.CharactorLeg direction={'right'} running={isRunning}>
         <img src={LegRight.src} alt="right leg" />
-        <img className={'back'} src={LegRight.src} alt="right leg" />
+        <img className={'back'} src={LegLeft.src} alt="right leg" />
       </SC.CharactorLeg>
     </SC.Charactor>
   );
