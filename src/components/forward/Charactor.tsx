@@ -87,6 +87,18 @@ const Charactor = ({
       });
     }
 
+    const keyboardArrowList = [
+      'ArrowLeft',
+      'ArrowRight',
+      'ArrowUp',
+      'ArrowDown',
+    ];
+    const isRunning = keyboardArrowList.includes(pressedKey);
+
+    if (isRunning) {
+      setIsRunning(true);
+    }
+
     // moveCharactor 함수는 e 인자가 필요하므로 반드시! e 를 인자로 전달해주어야 된다.
     requestAnimationFrameId = requestAnimationFrame(() => moveCharactor(e));
   };
@@ -97,6 +109,7 @@ const Charactor = ({
 
   const handleKeyUp = () => {
     cancelAnimationFrame(requestAnimationFrameId);
+    setIsRunning(false);
   };
 
   useEffect(() => {
