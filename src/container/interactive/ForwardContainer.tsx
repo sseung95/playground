@@ -13,6 +13,9 @@ const INITIAL_HOUSE_Z_MOVE = -500;
 const ForwardContainer = () => {
   const [houseZMove, setHouseZMove] = useState<number>(INITIAL_HOUSE_Z_MOVE);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [charactorXPositionList, setCharactorXPositionList] = useState<
+    number[]
+  >([]);
 
   const bodyRef = useRef<HTMLDivElement>(null);
   const scrollPercentage = useRef<number>(0);
@@ -34,6 +37,14 @@ const ForwardContainer = () => {
     setMousePosition({ x: x * 2, y: y * 2 });
   };
 
+  const handleHouseClick = (e: MouseEvent) => {
+    const clickedXPercentage = (e.clientX / window.innerWidth) * 100;
+    setCharactorXPositionList((prevXPositionList) => [
+      ...prevXPositionList,
+      clickedXPercentage,
+    ]);
+  };
+
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
 
@@ -47,7 +58,7 @@ const ForwardContainer = () => {
       <SC.ScrollBar percentage={scrollPercentage.current || 0} />
       <SC.Body ref={bodyRef} onMouseMove={handleMouseMove}>
         <SC.ForwardContainer>
-          <SC.Stage position={mousePosition}>
+          <SC.Stage position={mousePosition} onClick={handleHouseClick}>
             {/* 집 */}
             <SC.House zMove={houseZMove}>
               <SC.Wall position={'left'}></SC.Wall>
@@ -59,7 +70,9 @@ const ForwardContainer = () => {
             </SC.House>
 
             {/* 캐릭터 */}
-            <Charactor />
+            {charactorXPositionList.map((xPosition, index) => (
+              <Charactor key={index} xPositionPercentage={xPosition} />
+            ))}
           </SC.Stage>
         </SC.ForwardContainer>
       </SC.Body>

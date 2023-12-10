@@ -96,9 +96,12 @@ const setCharactorDirection = (direction: string) => {
   }
 };
 
-export const Charactor = styled.div<{ direction: string }>`
+export const Charactor = styled.div<{
+  direction: string;
+  xPositionPercentage: number;
+}>`
   position: absolute;
-  left: 20%;
+  left: ${({ xPositionPercentage }) => `${xPositionPercentage}%`};
   bottom: 3%;
 
   width: 10vw;

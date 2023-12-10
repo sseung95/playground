@@ -9,10 +9,16 @@ import LegRight from '@/public/images/forward/ilbuni_leg_0.png';
 import LegLeft from '@/public/images/forward/ilbuni_leg_1.png';
 import * as SC from '@/styles/components/interactive/Forward.styles';
 
-const Charactor = () => {
+const Charactor = ({
+  xPositionPercentage,
+}: {
+  xPositionPercentage: number;
+}) => {
   const [isRunning, setIsRunning] = useState(false);
   const [charactorDirection, setCharactorDirection] =
     useState<string>('forward');
+  const [xPosition, setXPosition] = useState(xPositionPercentage);
+  const speed = 2;
 
   // TODO: useState 로 하게 되면 의도한대로 동작이 잘되지 않음. 이유 찾아보기
   // const [prevScrollY, setPrevScrollY] = useState<number>(0);
@@ -57,10 +63,23 @@ const Charactor = () => {
   const handleKeyDown = (e: KeyboardEvent) => {
     const pressedKey = e.key;
 
+    const minLeftPercentage = 0;
+    const maxLeftPercentage = 100;
+
     if (pressedKey === 'ArrowLeft') {
       setCharactorDirection('left');
+      setXPosition((prevXPosition) => {
+        const curXPosition = prevXPosition - speed;
+        const isLessThanMinPercentage = curXPosition <= minLeftPercentage;
+        return isLessThanMinPercentage ? minLeftPercentage : curXPosition;
+      });
     } else if (pressedKey === 'ArrowRight') {
       setCharactorDirection('right');
+      setXPosition((prevXPosition) => {
+        const curXPosition = prevXPosition + speed;
+        const isMoreThanMinPercentage = curXPosition >= maxLeftPercentage;
+        return isMoreThanMinPercentage ? maxLeftPercentage : curXPosition;
+      });
     }
   };
 
@@ -74,7 +93,10 @@ const Charactor = () => {
   }, []);
 
   return (
-    <SC.Charactor direction={charactorDirection}>
+    <SC.Charactor
+      direction={charactorDirection}
+      xPositionPercentage={xPosition}
+    >
       {/* 머리 */}
       <SC.CharactorHead>
         <img src={HeadFront.src} alt="head" />
