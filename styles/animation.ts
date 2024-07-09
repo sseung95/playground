@@ -52,3 +52,21 @@ export const legAnimation = keyframes`
     transform: rotateX(30deg);
   }
 `;
+
+export const glowInputSpin = keyframes`
+  0% {
+    --rotate: 0deg;
+  }
+  25% {
+      --rotate: 150deg;
+  }
+  50% {
+      --rotate: 180deg;
+  }
+  75% {
+      --rotate: 240deg;
+  }
+  100% {
+      --rotate: 360deg;
+  }
+`
