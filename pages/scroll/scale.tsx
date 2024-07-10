@@ -1,5 +1,6 @@
+import Dnd from '@/src/components/dnd/Dnd';
 import styled from '@emotion/styled'
-import { motion } from 'framer-motion'
+import { motion, Reorder } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react';
 
 const Scale = () => {
@@ -28,41 +29,43 @@ const Scale = () => {
   return (
     <div style={{ maxWidth: 1280, margin: '0 auto' }}>
       <SectionHeader ref={elementRef}></SectionHeader>
-      <div style={{ position: 'relative', width: '100%' }}>
+      <div style={{ position: 'relative', width: '100%', height: 460, marginBottom: 100 }}>
         <SectionBody>
           <motion.div 
             className="box"
             animate={isAtTop ? { height: 460 } : { height: 360 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.8 }}
           >
           </motion.div>
           <motion.div 
             className="box"
             animate={isAtTop ? { height: 460 } : { height: 360 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.8 }}
           >
           </motion.div>
           <motion.div
             className="box center"
             initial={{ width: 315, height: 360 }}
             animate={isAtTop ? { width: 1280, height: 460 } : { width: 206, height: 360 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.8 }}
           >
           </motion.div>
           <motion.div 
             className="box"
             animate={isAtTop ? { height: 460 } : { height: 360 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.8 }}
           >
           </motion.div>
           <motion.div 
             className="box"
             animate={isAtTop ? { height: 460 } : { height: 360 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.8 }}
           >
           </motion.div>
         </SectionBody>
       </div>
+
+      <Dnd />
     </div>
   )
 }
@@ -88,7 +91,7 @@ const SectionBody = styled.div`
     height: 360px;
     border: 1px solid blue;
     border-radius: 32px;
-    margin-bottom: 500px;
+    /* margin-bottom: 500px; */
 
     &.center {
       width: 315px;
