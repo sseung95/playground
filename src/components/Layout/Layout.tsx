@@ -12,7 +12,7 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   const router = useRouter();
-  const [folding, setFolding] = useState(false);
+  const [folding, setFolding] = useState(true);
 
   return (
     <>

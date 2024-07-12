@@ -1,4 +1,5 @@
-import Dnd from '@/src/components/dnd/Dnd';
+import Dnd from '@/src/components/reference/Dnd';
+import Sticky from '@/src/components/reference/Sticky';
 import styled from '@emotion/styled'
 import { motion, Reorder } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react';
@@ -46,7 +47,7 @@ const Scale = () => {
           <motion.div
             className="box center"
             initial={{ width: 315, height: 360 }}
-            animate={isAtTop ? { width: 1280, height: 460 } : { width: 206, height: 360 }}
+            animate={isAtTop ? { width: 1280, height: 460 } : { width: 315, height: 360 }}
             transition={{ duration: 0.8 }}
           >
           </motion.div>
@@ -65,7 +66,9 @@ const Scale = () => {
         </SectionBody>
       </div>
 
+      <Sticky />
       <Dnd />
+      {/* <MatterCircles /> */}
     </div>
   )
 }

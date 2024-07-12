@@ -43,8 +43,6 @@ const Sticky = () => {
           </div>
         </RightWrapper>
       </ScrollWrapper>
-
-      <ScrollWrapper></ScrollWrapper>
     </>
   )
 }
